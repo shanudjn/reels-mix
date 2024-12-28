@@ -4,17 +4,17 @@ import fs from "fs";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  const uploadsDir = path.resolve(__dirname, "../../uploads");
-  fs.readdir(uploadsDir, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: "Unable to list files" });
-    }
-    res.json({ files });
-  });
-});
+// router.get("/", (req: Request, res: Response) => {
+//   const uploadsDir = path.resolve(__dirname, "../../uploads");
+//   fs.readdir(uploadsDir, (err, files) => {
+//     if (err) {
+//       return res.status(500).json({ error: "Unable to list files" });
+//     }
+//     res.json({ files });
+//   });
+// });
 
-router.get("/stream/:filename", (req: Request, res: Response) => {
+router.get("/:filename", (req: Request, res: Response) => {
   const fileName = req.params.filename;
   const filePath = path.resolve(__dirname, "../../uploads", fileName);
 
