@@ -16,20 +16,24 @@ router.get("/", (req: Request, res: Response) => {
 router.post(
   "/create-montage",
   upload.array("videos", 3),
-  (req: Request, res: Response): any => {
+  async (req: Request, res: Response): Promise<any> => {
     const files = (req as MulterRequest).files;
+    //TODO
+    // if (!files || files.length < 3) {
+    //   return res.status(400).json({ error: "Please upload at least 3 videos" });
+    // }
 
     const videoPaths = files.map((file) => file.path);
     const outputFile = `montage_${Date.now()}.mp4`;
 
-    createMontage(videoPaths, outputFile, (error, output) => {
-      if (error) {
-        return res
-          .status(500)
-          .json({ error: "Failed to create montage", details: error });
-      }
+    try {
+      const output = await createMontage(videoPaths, outputFile);
       res.json({ message: "Montage created successfully", output });
-    });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Failed to create montage", details: error });
+    }
   }
 );
 
