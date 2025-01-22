@@ -63,7 +63,7 @@ const VideoPreview = ({ videos }: VideoPreviewProps) => {
             onLoadedData={handleVideoLoaded}
           />
         ) : (
-          <Video className="w-16 h-16 text-gray-400" />
+          <Video className="w-6 h-7 text-gray-400" />
         )}
       </div>
     </div>
